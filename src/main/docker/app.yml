@@ -1,0 +1,19 @@
+version: '2'
+services:
+    lesgourgues-app:
+        image: lesgourgues
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://lesgourgues-postgresql:5432/lesgourgues
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=lesgourgues-elasticsearch:9300
+        ports:
+            - 8080:8080
+    lesgourgues-postgresql:
+        extends:
+            file: postgresql.yml
+            service: lesgourgues-postgresql
+    lesgourgues-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: lesgourgues-elasticsearch
